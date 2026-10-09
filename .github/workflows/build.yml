@@ -1,0 +1,76 @@
+
+name: Build VacancyFind
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Build Windows executable
+        run: >
+          python -m PyInstaller
+          --noconfirm
+          --clean
+          --onefile
+          --windowed
+          --name VacancyFind
+          vacancy.py
+
+      - name: Upload Windows executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: VacancyFind-Windows-x64
+          path: dist/VacancyFind.exe
+
+  build-macos:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Build macOS application
+        run: >
+          python -m PyInstaller
+          --noconfirm
+          --clean
+          --windowed
+          --name VacancyFind
+          vacancy.py
+
+      - name: Package macOS application
+        run: |
+          cd dist
+          ditto -c -k --sequesterRsrc --keepParent \
+            VacancyFind.app VacancyFind-macOS.zip
+
+      - name: Upload macOS application
+        uses: actions/upload-artifact@v4
+        with:
+          name: VacancyFind-macOS
+          path: dist/VacancyFind-macOS.zip
