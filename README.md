@@ -4,6 +4,9 @@
 
 VacancyFind is a desktop application that brings together career websites and company links from across Sri Lanka, making it easier for graduates, job seekers, and professionals to discover organizations they can apply to.
 
+<img width="693" height="914" alt="Screenshot from 2026-10-21 23-44-02" src="https://github.com/user-attachments/assets/e0046195-78fe-4267-9f22-09862360d5be" />
+
+
 The project initially focuses on opportunities relevant to **Mechatronics, Electronics, and Telecommunication graduates and professionals**, with the goal of making the job search process a little easier.
 
 ## 💡 Why I Built This
